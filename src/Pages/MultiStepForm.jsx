@@ -281,7 +281,7 @@ const Form2 = ({ formData, setFormData }) => {
         borderradius={"20px"}
         p={2}
         my={5}
-        style={{ width: "75%", color: "black" }}
+        style={{ width: "75%", color: "black" , marginBottom: "3%"}}
       />
       
       <button type="button" onClick={handleSubmit}>Submit</button>
