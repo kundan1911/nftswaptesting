@@ -209,20 +209,69 @@ console.log(formData)
 };
 
 const Form2 = ({ formData, setFormData }) => {
+  const toast = useToast();
+  const { address } = useAccount();
   const [counterAddress, setCounterAddress] = useState('Enter Counter Address');
   const [loadCounterNft, setLoadCounterNft]=useState(false)
+  const [formKey, setFormKey] = useState(0);
 
   const handleSubmit=(event)=>{
     event.preventDefault();
-    setLoadCounterNft(!loadCounterNft)
+    const isValidAddress = /^0x[a-fA-F0-9]{40}$/.test(counterAddress);
+
+    if (isValidAddress) {
+      // Increment the key to force a re-render of the GetNfts component
+      setFormKey((prevKey) => prevKey + 1);
+      setLoadCounterNft(true)
+    } else {
+      // Set the state to false if the address is not valid
+      setLoadCounterNft(false)
+      toast({
+        title: "Invalid Contract Address",
+        description: "Change the address and submit again",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+
 
   }
   return (
     <>
-      <Grid key={2} templateColumns={{ base: "1fr", lg: "1fr 3fr" }} height={"auto"}>
-        <GridItem padding={"5%"}>
+    
+<Stack gap={0} bg={"rgb(6, 21, 50)"} borderRadius={"30px"} border={"5px solid rgb(27, 128, 182)"}>
+        <Grid
+          gap={3}
+          p={3}
+          bg={"rgb(27, 128, 182)"}
+          //   justify={{ sm: "block", lg: "space-between" }}
+          justifyItems={{ base: "center", lg: "space-between" }}
+          templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }}
+          borderRadius={"20px"}
+          borderBottomRightRadius={0}>
+          <HStack>
+            <Stack>
+              <Text fontSize={"sm"}>{formData.frm1[1]}</Text>
+              <Text fontSize={"sm"}>{formData.frm1[2]}</Text>
+            </Stack>
+            <Button border={"2px solid blue"} color={"white"} bg={"blackAlpha.200"} >
+              Change
+            </Button>
+          </HStack>
 
-      <input 
+          <Heading fontSize={{ base: "lg", lg: "2xl" }}>What NFT are you looking for?</Heading>
+          <HStack justifyContent={{ lg: "flex-end" }}>
+            <Stack>
+              <Text>Your Wallet</Text>
+              <Text>{address.slice(0,4) +"..." +address.slice(38)}</Text>
+            </Stack>
+            <img width={"50px"} src='https://framerusercontent.com/images/85l3B9qKcsJZISndCTY83iZik.png' alt='x' />
+          </HStack>
+        </Grid>
+        <Grid templateColumns={{ base: "1fr", lg: "1fr 2fr" }}>
+          <GridItem p={5}>
+          <input 
         type="text"
         // width={150}
         value={counterAddress}
@@ -253,11 +302,12 @@ const Form2 = ({ formData, setFormData }) => {
     </Stack>
   </div>
 ) : (
-  <GetNfts loadCounterNFt={loadCounterNft} address={counterAddress}/>
+  <GetNfts key={formKey} loadCounterNFt={loadCounterNft} address={counterAddress}/>
 )}
+          </GridItem>
+        </Grid>
+      </Stack>
 
-</GridItem>
-</Grid>
     </>
   );
 };
