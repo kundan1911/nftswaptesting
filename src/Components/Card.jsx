@@ -15,6 +15,18 @@ export default function Card(props) {
   });
   const handleNFTClick=(name,img)=>{
     setSelectedNFT(name)
+    if(props.type===2){
+    props.setFormData(((prevData) => ({ ...prevData, "frm2" :{
+      name,
+      nftImage:img
+    }})))
+  }
+  else{
+    props.setFormData(((prevData) => ({ ...prevData, "frm3" :{
+      name,
+      nftImage:img
+    }})))
+  }
   }
 
   return (

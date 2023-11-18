@@ -21,7 +21,6 @@ export const MNain = () => {
       <Speciality />
       <Stack mx={{ base: "10%", lg: "20%" }}>
         <Work />
-        <RoadMap />
         <Faq />
         <Contact />
       </Stack>

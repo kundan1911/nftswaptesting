@@ -2,7 +2,7 @@ import { LockIcon } from "@chakra-ui/icons";
 import { Box, Heading, Text, Stack, Avatar, useColorModeValue, Grid, Button, HStack } from "@chakra-ui/react";
 
 
-export default function MarketCard({ title, des, imgs = [], author, authorImg, value, acceptTance={name: "Hasabulla", img: ""}, status = true }) {
+export default function MarketCard({ title, des, imgs = [], author, ExpiryDate, value, acceptTance={name: "Hasabulla", img: ""}, status = true }) {
   return (
     <Box
       maxW={"400px"}
@@ -39,12 +39,12 @@ export default function MarketCard({ title, des, imgs = [], author, authorImg, v
         </Grid>
       </Stack>
       <Stack color={"gray.500"} mt={6} direction={{base: "row", md:"column", xl:"row"}} spacing={4} align={"center"}>
-        <Avatar src={authorImg} />
+        {/* <Avatar src={authorImg} /> */}
         <Stack direction={"column"} spacing={0} fontSize={"sm"}>
           <Text color={"black"} fontWeight={600}>
             {author}
           </Text>
-          <Text color={"gray.500"}>Feb 08, 2021 · 6min read</Text>
+          <Text color={"gray.500"}>Expiry Date :- {ExpiryDate}</Text>
           <Text color={"gray.500"}>Value = {value}</Text>
         </Stack>
         <Stack>

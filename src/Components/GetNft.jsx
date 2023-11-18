@@ -5,10 +5,11 @@ import axios from "axios";
 import styles from "../styles/Home.module.css";
 import Card from "./Card";
 
-export default function GetNfts(props) {
+export default function GetNfts(props) {  
   const [nfts, setNfts] = useState([]);
   const [selectNft,setSelectedNFT]=useState(0);
 console.log(props.address)
+
   var route;
   var { address } = useAccount();
   if(props.loadCounterNFt===true){
@@ -39,10 +40,12 @@ console.log(props.address)
   };
 
   return (
-    <section className={styles.dataContainer}>
+    // <section className={styles.dataContainer}>
+    <>
       {nfts.map((nft) => {
-        return nft.metadata && <Card uri={nft} key={nft.token_uri}  onSelectNFT={handleSelectNFT}/>;
+        return nft.metadata && <Card uri={nft} key={nft.token_uri}  onSelectNFT={handleSelectNFT} setFormData={props.setFormData} type={props.type} />;
       })}
-    </section>
+    </>
+    // </section>
   );
 }
