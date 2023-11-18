@@ -13,10 +13,10 @@ console.log(props.address)
   var { address } = useAccount();
   if(props.loadCounterNFt===true){
   address=props.address
- route="http://localhost:5001/getContractNFTs"
+ route="https://nftbackend-f4yt.onrender.com/getContractNFTs"
   }
   else
-  route="http://localhost:5001/getnfts"
+  route="https://nftbackend-f4yt.onrender.com/getnfts"
   // address="0x9d305a42a3975ee4c1c57555bed5919889dce63f"
   const chain = "0x89";
 // 
