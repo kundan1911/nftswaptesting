@@ -1,13 +1,13 @@
 import React from "react";
 import MarketCard from "../Components/MarketCards";
-import { Grid, useDisclosure, Button } from "@chakra-ui/react";
-import { Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from "@chakra-ui/react";
-import { useRef,useState } from "react";
+import { Grid } from "@chakra-ui/react";
+// import { Drawer, DrawerBody, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton } from "@chakra-ui/react";
+import { useState } from "react";
 import axios from 'axios';
 
 // import { ethers } from 'ethers';
 // import { Web3ReactProvider } from '@web3-react/core';
-import { FaWolfPackBattalion } from "react-icons/fa";
+// import { FaWolfPackBattalion } from "react-icons/fa";
 
 // const getEtherData= async ()=>{
 //   let signer = null;
@@ -37,72 +37,12 @@ import { FaWolfPackBattalion } from "react-icons/fa";
 //     console.log(signer.address)
 // }
 // }
-function DrawerExample(props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-  const {address, isConnected, connect} = props;
-
-
-  /* ATTENTION 
-
-  if you wann understand how the not showing logic work then check Navabar.jsx 66-76 lines
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⢀⣴⣷⣄⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⢴⣿⣿⣿⣿⣿⣏⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠈⠿⣿⣿⣿⣿⣷⣄⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀
-⠀⢀⣴⣧⣄⠀⠀⠀⠀⠙⢻⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠉⠿⣿⣿⣿⣿⣷⣄⠀
-⢴⣿⣿⣿⣿⣶⣀⠀⠀⠀⠀⢘⣿⣿⣿⣿⣿⣿⣏⠀⠀⠀⠀⠉⠿⣿⣿⣿⣿⡷
-⠀⠙⠿⣿⣿⣿⣿⣶⣄⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠉⠻⡿⠋⠀
-⠀⠀⠀⠉⢿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠘⢻⣿⣿⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⢉⣿⣿⣿⣿⣿⡷⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠉⢿⡿⠋⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢴⣿⣿⣿⣿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⢿⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-
-*/
-
-  return (
-    // <Web3ReactProvider getLibrary={getLibrary}>
-    <div style={{ width: "100%", margin: "auto", textAlign: "end", padding: "2%" }}>
-      <Button ref={btnRef} colorScheme='teal' onClick={connect}>
-      {isConnected ? (address.slice(0,4) +"..." +address.slice(38)) : "Connect"}
-      </Button>
-      <Drawer isOpen={isOpen} placement='right' onClose={onClose} finalFocusRef={btnRef}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader color={"gray.500"}>Connect your wallet</DrawerHeader>
-
-          <DrawerBody>
-            <Button width={"auto"}>
-              <FaWolfPackBattalion size={30} />
-              <p style={{ margin: "0 5%" }}>Metamask</p>
-            </Button>
-          </DrawerBody>
-
-          <DrawerFooter>
-            <Button variant='outline' mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme='blue'>Save</Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </div>
-    // </Web3ReactProvider>
-  );
-}
-
-
-const MarketPlace = (props) => {
+const Posts = (props) => {
   const [postData, setPostData] = useState([]);
   const [callonce, setCall] = useState(1);
 
   const DisplayPostData = () => {
-    axios.get('https://nftbackend-2p4r.onrender.com/displayPostData')
+    axios.get('http://localhost:5001/displayPostData')
       .then(response => {
         setPostData(prevData => [...prevData, ...response.data]);
       })
@@ -130,7 +70,7 @@ const MarketPlace = (props) => {
             ExpiryDate={nft.expiryDate}
             author={nft.SenderNft}
             value={"$ 1,000"}
-            status={false}
+            status={true}
             acceptTance={{ name: nft.ReceiverNft, img: nft.imageUrl2 }}
           />
         ))}
@@ -139,4 +79,4 @@ const MarketPlace = (props) => {
   );
 };
 
-export default MarketPlace;
+export default Posts;
