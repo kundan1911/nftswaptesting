@@ -45,10 +45,10 @@ export default function MarketCard({ title, des, imgs = [], author, ExpiryDate, 
             {author}
           </Text>
           <Text color={"gray.500"}>Expiry Date :- {ExpiryDate}</Text>
-          <Text color={"gray.500"}>Value = {value}</Text>
+
         </Stack>
         <Stack>
-          {status === true ? <Text color={"green"}>Completed</Text> : <Text color={"red"}>Expired</Text>}
+          {status === true ? <Text color={"green"}>Open</Text> : <Text color={"red"}>Expired</Text>}
           <Button>Make your offer</Button>
         </Stack>
       </Stack>
