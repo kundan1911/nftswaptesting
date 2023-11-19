@@ -1,6 +1,6 @@
 "use client";
 import { useNavigate } from 'react-router';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GetNfts from "../Components/GetNft";
 import axios from 'axios';
 import OnlyCard from '../Components/OnlyCard'; 
@@ -375,60 +375,6 @@ const Form3 = ({ formData, setFormData }) => {
   const [value, setValue] = useState("1");
   return (
     <>
-      {/* <Stack
-        gap={0}
-        bg={"rgb(6, 21, 50)"}
-        borderRadius={"30px"}
-        border={"5px solid rgb(27, 128, 182)"}
-      >
-        <Grid
-          gap={3}
-          p={3}
-          bg={"rgb(27, 128, 182)"}
-          //   justify={{ sm: "block", lg: "space-between" }}
-          justifyItems={{ base: "center", lg: "space-between" }}
-          templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }}
-          borderRadius={"20px"}
-          borderBottomRightRadius={0}
-        >
-          <HStack>
-            <Stack>
-              <Text fontSize={"sm"}>{formData.frm1[1]}</Text>
-              <Text fontSize={"sm"}>{formData.frm1[2]}</Text>
-            </Stack>
-            <Button
-              border={"2px solid blue"}
-              color={"white"}
-              bg={"blackAlpha.200"}
-            >
-              Change
-            </Button>
-          </HStack>
-
-          <Heading fontSize={{ base: "lg", lg: "2xl" }}>
-            Select What you want to offer for this post
-          </Heading>
-          <HStack justifyContent={{ lg: "flex-end" }}>
-            <Stack>
-              <Text>Your Wallet</Text>
-              <Text>{address.slice(0, 4) + "..." + address.slice(38)}</Text>
-            </Stack>
-            <img
-              width={"50px"}
-              src="https://framerusercontent.com/images/85l3B9qKcsJZISndCTY83iZik.png"
-              alt="x"
-            />
-          </HStack>
-        </Grid>
-        <Grid templateColumns={{ base: "1fr", lg: "1fr 2fr" }}>
-          <GridItem p={5}>
-            <GetNfts loadCounterNFt={false} />
-          </GridItem>
-        </Grid>
-      </Stack> */}
-
-
-
       <Stack
         gap={0}
         bg={"rgb(6, 21, 50)"}
@@ -532,15 +478,6 @@ const Form4 = ({ formData, setFormData }) => {
         justify={{ base: "center", lg: "space-between" }}
       >
         <HStack>
-          {/* <img
-            width={"40px"}
-            src="https://framerusercontent.com/images/85l3B9qKcsJZISndCTY83iZik.png"
-            alt="x"
-          /> */}
-          {/* <Stack mx={4}>
-            <Text>Your Wallet</Text>
-            <Text>{address.slice(0, 4) + "..." + address.slice(38)}</Text>
-          </Stack> */}
            <Stack textAlign={"center"} w={{ base: "70vw", lg: "15vw" }} m={"auto"}>
         <Text border={"2px solid blue"} borderRadius={"20px"} p={3}>
           This post will expire in{" "}
@@ -586,8 +523,9 @@ const Form4 = ({ formData, setFormData }) => {
         justifyItems={"center"}
         templateColumns={{ base: "repeat(1, 1fr)", lg: "repeat(2, 1fr)" }}
       >
+         <OnlyCard name={formData.frm3.name} Image={formData.frm3.nftImage}/>
       <OnlyCard name={formData.frm2.name} Image={formData.frm2.nftImage}/>
-      <OnlyCard name={formData.frm3.name} Image={formData.frm3.nftImage}/>
+     
       </Grid>
     </Stack>
   );
@@ -602,13 +540,37 @@ export default function Multistep() {
   const [progress, setProgress] = useState(25);
   const Page = ["01 Create Post", "02 Add NFTs", "03 Your Offer", "04 Verify"];
 
+  useEffect(()=>{console.log(Object.keys(formData).length)
+
+    const num=Object.keys(formData).length
+  if(num===2){
+  toast({
+    title: "Counter NFT selected",
+    description: "You have Selected " + formData.frm2.name,
+    status: "success",
+    duration: 1000,
+    isClosable: true,
+  });
+}
+
+  if(num===3){
+    toast({
+      title: "Your NFT selected",
+      description: "You have Selected " + formData.frm3.name,
+      status: "success",
+      duration: 1000,
+      isClosable: true,
+    });
+  }
+
+},[formData])
   const handleSubmit = () => {
     const allFormData = formData;
     console.log("all form data");
     console.log(allFormData);
     // Perform any action with the complete form data
 
-    axios.post('https://nftbackend-2p4r.onrender.com/savePostData', {
+    axios.post('http://localhost:5001/savePostData', {
       SenderNft: formData.frm3.name,
       ReceiverNft: formData.frm2.name,
       expiryDate: formData.frm1[3],
