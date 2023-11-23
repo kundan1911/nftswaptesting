@@ -482,7 +482,7 @@ const Form3 = ({ formData, setFormData }) => {
               <GetNfts
                 loadCounterNFt={false}
                 setFormData={setFormData}
-                type={3}
+                type={1}
               />
             </Grid>
       </Stack>
