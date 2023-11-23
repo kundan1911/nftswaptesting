@@ -16,9 +16,14 @@ console.log(props.address)
   address=props.address
  route="http://localhost:5001/getContractNFTs"
   }
-  else
+  else{
   route="http://localhost:5001/getnfts"
+  if(props.counterAddr===2){
+    address=props.address
+  }
   // address="0x9d305a42a3975ee4c1c57555bed5919889dce63f"
+
+  }
   const chain = "0x89";
 // 
   useEffect(() => {

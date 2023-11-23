@@ -1,26 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 // import Moralis from 'moralis';
 // import { useMoralis } from 'react-moralis';
-import { Box, Flex, Text, Icon } from '@chakra-ui/react';
+import { Box, Flex, Text, Icon, Grid } from '@chakra-ui/react';
 import Dialog from 'rc-dialog';
 import { Jazzicon } from '@ukstv/jazzicon-react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { BsArrowRight } from 'react-icons/bs';
 import 'rc-dialog/assets/bootstrap.css';
-import GetNFt from './GetNft';
+import GetNFts from './GetNft';
 import { useAccount } from "wagmi";
+import OnlyCard from '../Components/OnlyCard'; 
 import axios from 'axios'
 
 const NewLeft = () => {
 
     const [ nfts, setNfts ] = useState([]);
     const [  selected, setSelected ] = useState([]);
+    const [formData, setFormData] = useState({});
     var { address } = useAccount();
     const [ isOpen, setOpen ] = useState(false);
     const openModal = () => {
         console.log("open")
         setOpen(true);
     };
+    useEffect(()=>{
+        setOpen(false);
+        console.log(formData)
+    },[formData])
+
     const closeModal = () => setOpen(false);
     const onClickNFT = (i: number) => {
         return () => {
@@ -45,12 +52,16 @@ const NewLeft = () => {
             <BsArrowRight color='white' size={25} />
           </Flex>
         </Flex>
-        {address && (
-          <Flex alignItems="center" gap={3} pt={5}>
-            {/* Replace Jazzicon with Chakra UI styles */}
-            {/* <Jazzicon address={address} className='w-8 h-8 border-2 border-black rounded-full' /> */}
-            <Text>{address}</Text>
-          </Flex>
+        {formData ? (
+            <OnlyCard name={formData.name} Image={formData.nftImage}/>
+        //   <Flex alignItems="center" gap={3} pt={5}>
+        //     {/* Replace Jazzicon with Chakra UI styles */}
+        //     {/* <Jazzicon address={address} className='w-8 h-8 border-2 border-black rounded-full' /> */}
+        //     <Text>{address}</Text>
+        //   </Flex>
+        ) : (
+            <Text></Text>
+        //   <OnlyCard name={formData.frm3.name} Image={formData.frm3.nftImage}/>
         )}
         <Flex flexWrap="wrap" alignItems="start" gap={3} width="full" pt={5} overflowY="auto">
           {/* {selected.map((val, key) => <NFT nft={val} onClick={onClickCard} key={key} />)} */}
@@ -67,19 +78,20 @@ const NewLeft = () => {
                         <div>Choose a NFT assets.</div>
                         <div className='flex flex-col gap-3 p-2 overflow-y-auto bg-gray-200'>
                             {
-                                // nfts.length ?
-                                // nfts.map((nft, key) => (
-                                //     <div onClick={onClickNFT(key)} className='flex items-center gap-3 cursor-pointer' key={key}>
-                                //         {
-                                //             JSON.parse(nft.metadata)?.image ?
-                                //             <img src={JSON.parse(nft.metadata)?.image} alt="" className='w-10 h-10 rounded-full' style={{ imageRendering: '-webkit-optimize-contrast' }} /> :
-                                //             <div className='w-10 h-10 bg-gray-300 rounded-full' />
-                                //         }
-                                //         {nft.name}
-                                //     </div>
-                                // )) :
-                                <div>You don't have any NFT.</div>
+                <Grid
+                gap={5}
+                justifyItems={"center"}
+                templateColumns={{ base: "repeat(1, 1fr)", md:"repeat(2, 1fr)", lg: "repeat(3, 1fr)" }}
+              >
+
+                                <GetNFts
+                                loadCounterNFt={false} 
+                                setFormData={setFormData}
+                                type={3}
+                                 />
+                                </Grid>
                             }
+                            
                         </div>
                     </div>
                     <div className='flex flex-wrap items-start w-full gap-3 overflow-y-auto'>

@@ -21,6 +21,13 @@ export default function Card(props) {
       nftImage:img
     }})))
   }
+  else if(props.type===3){
+    props.setFormData({
+      name,
+      nftImage:img
+    })
+    // console.log()
+  }
   else{
     props.setFormData(((prevData) => ({ ...prevData, "frm3" :{
       name,
