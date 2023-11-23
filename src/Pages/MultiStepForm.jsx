@@ -375,6 +375,60 @@ const Form3 = ({ formData, setFormData }) => {
   const [value, setValue] = useState("1");
   return (
     <>
+      {/* <Stack
+        gap={0}
+        bg={"rgb(6, 21, 50)"}
+        borderRadius={"30px"}
+        border={"5px solid rgb(27, 128, 182)"}
+      >
+        <Grid
+          gap={3}
+          p={3}
+          bg={"rgb(27, 128, 182)"}
+          //   justify={{ sm: "block", lg: "space-between" }}
+          justifyItems={{ base: "center", lg: "space-between" }}
+          templateColumns={{ base: "1fr", md: "1fr 1fr 1fr" }}
+          borderRadius={"20px"}
+          borderBottomRightRadius={0}
+        >
+          <HStack>
+            <Stack>
+              <Text fontSize={"sm"}>{formData.frm1[1]}</Text>
+              <Text fontSize={"sm"}>{formData.frm1[2]}</Text>
+            </Stack>
+            <Button
+              border={"2px solid blue"}
+              color={"white"}
+              bg={"blackAlpha.200"}
+            >
+              Change
+            </Button>
+          </HStack>
+
+          <Heading fontSize={{ base: "lg", lg: "2xl" }}>
+            Select What you want to offer for this post
+          </Heading>
+          <HStack justifyContent={{ lg: "flex-end" }}>
+            <Stack>
+              <Text>Your Wallet</Text>
+              <Text>{address.slice(0, 4) + "..." + address.slice(38)}</Text>
+            </Stack>
+            <img
+              width={"50px"}
+              src="https://framerusercontent.com/images/85l3B9qKcsJZISndCTY83iZik.png"
+              alt="x"
+            />
+          </HStack>
+        </Grid>
+        <Grid templateColumns={{ base: "1fr", lg: "1fr 2fr" }}>
+          <GridItem p={5}>
+            <GetNfts loadCounterNFt={false} />
+          </GridItem>
+        </Grid>
+      </Stack> */}
+
+
+
       <Stack
         gap={0}
         bg={"rgb(6, 21, 50)"}
@@ -570,7 +624,7 @@ export default function Multistep() {
     console.log(allFormData);
     // Perform any action with the complete form data
 
-    axios.post('https://nftbackend-2p4r.onrender.com/savePostData', {
+    axios.post('http://localhost:5001/savePostData', {
       SenderNft: formData.frm3.name,
       ReceiverNft: formData.frm2.name,
       expiryDate: formData.frm1[3],
