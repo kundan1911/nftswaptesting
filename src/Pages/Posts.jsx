@@ -42,7 +42,7 @@ const Posts = (props) => {
   const [callonce, setCall] = useState(1);
 
   const DisplayPostData = () => {
-    axios.get('http://localhost:5001/displayPostData')
+    axios.get('https://nftbackend-2p4r.onrender.com/displayPostData')
       .then(response => {
         setPostData(prevData => [...prevData, ...response.data]);
       })
