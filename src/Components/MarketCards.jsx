@@ -8,10 +8,12 @@ export default function MarketCard({ title, des, imgs = [], author, ExpiryDate, 
       maxW={"400px"}
       w={"full"}
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      bg={useColorModeValue("white", "gray.900")}
+      bg={useColorModeValue("black", "black")}
       boxShadow={"2xl"}
       rounded={"lg"}
       p={6}
+      borderColor={"white"}
+      borderWidth={"thin"}
       overflow={"hidden"}>
       <Stack>
         <Stack borderRadius={'20px'} bg={'white'} boxShadow={'inset 0 0 10px gray'} width={'60%'} p={2} borderTopLeftRadius={0}>
@@ -26,25 +28,26 @@ export default function MarketCard({ title, des, imgs = [], author, ExpiryDate, 
         </Stack>
         <Heading
           // eslint-disable-next-line react-hooks/rules-of-hooks
-          color={useColorModeValue("gray.700", "white")}
+          color={useColorModeValue("white", "white")}
           fontSize={"2xl"}
           fontFamily={"body"}>
           {title}
         </Heading>
-        <Text color={"gray.500"}>{des}</Text>
+        <Text color={"white"}>{des}</Text>
         <Grid templateColumns={"repeat(3,1fr)"}>
           {imgs.map((img, index) => (
-            <img width={"100px"} height={"100px"} key={index} src={img} alt='' />
+            <img width={"120px"} height={"120px"} key={index} src={img} alt='' style={{border: "solid",
+              borderWidth: "2px"}}/>
           ))}
         </Grid>
       </Stack>
       <Stack color={"gray.500"} mt={6} direction={{base: "row", md:"column", xl:"row"}} spacing={4} align={"center"}>
         {/* <Avatar src={authorImg} /> */}
         <Stack direction={"column"} spacing={0} fontSize={"sm"}>
-          <Text color={"black"} fontWeight={600}>
+          <Text color={"white"} fontWeight={600}>
             {author}
           </Text>
-          <Text color={"gray.500"}>Expiry Date :- {ExpiryDate}</Text>
+          <Text color={"white"}>Expiry Date :- {ExpiryDate}</Text>
 
         </Stack>
         <Stack>
