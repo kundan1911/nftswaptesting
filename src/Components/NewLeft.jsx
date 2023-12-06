@@ -10,7 +10,6 @@ import 'rc-dialog/assets/bootstrap.css';
 import GetNFts from './GetNft';
 
 import OnlyCard from '../Components/OnlyCard'; 
-import axios from 'axios'
 
 const NewLeft = (props) => {
 

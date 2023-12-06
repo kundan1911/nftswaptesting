@@ -11,14 +11,19 @@ export default function GetNfts(props) {
 console.log(props.address)
 
   var route;
-  var { address } = useAccount();
+  var { address,isConnected } = useAccount();
   if(props.loadCounterNFt===true){
   address=props.address
  route="https://nftbackend-2p4r.onrender.com/getContractNFTs"
   }
   else{
+    // console.log("Innn")
   route="https://nftbackend-2p4r.onrender.com/getnfts"
+
+  console.log("direcr")
+  console.log(isConnected)
   if(props.counterAddr===2){
+    
     address=props.address
   }
   // address="0x9d305a42a3975ee4c1c57555bed5919889dce63f"
@@ -46,9 +51,10 @@ console.log(props.address)
 
   return (
     // <section className={styles.dataContainer}>
+    // return nft.metadata && <Card uri={nft} key={nft.token_uri}  onSelectNFT={handleSelectNFT} setFormData={props.setFormData} type={props.type} />;
     <>
       {nfts.map((nft) => {
-        return nft.metadata && <Card uri={nft} key={nft.token_uri}  onSelectNFT={handleSelectNFT} setFormData={props.setFormData} type={props.type} />;
+        return  <Card uri={nft} key={nft.token_uri}  onSelectNFT={handleSelectNFT} setFormData={props.setFormData} type={props.type} />;
       })}
     </>
     // </section>

@@ -40,14 +40,12 @@ import axios from 'axios';
 const Posts = (props) => {
   const [postData, setPostData] = useState([]);
   const [callonce, setCall] = useState(1);
-
-     const  extractBeforePattern=(inputString)=> {
+  const  extractBeforePattern=(inputString)=> {
     const patterns = /#(\d+)|\(\d+,\s*\d+\)/;
     const matchIndex = inputString.search(patterns);
     const result = matchIndex !== -1 ? inputString.slice(0, matchIndex) : inputString;
     return result.trim(); 
   }
-    
   const DisplayPostData = () => {
     axios.get('https://nftbackend-2p4r.onrender.com/displayPostData')
       .then(response => {

@@ -18,7 +18,7 @@ const Hero = () => {
           <a href='/create-post'>
             <button className='bn30'>Create Post</button>
           </a>
-          <a href='/'>
+          <a href='/DirectTrade'>
             <button className='bn30'>Direct Swap</button>
           </a>
         </HStack>

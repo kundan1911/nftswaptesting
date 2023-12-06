@@ -11,7 +11,7 @@ import GetNFts from './GetNft';
 import { useToast,Grid } from "@chakra-ui/react";
 // import NFT from 'components/NFT';
 
-const NewRight = () => {
+const NewRight = (props) => {
     const toast = useToast();
     const addressInput = useRef(null);
     const [ nfts, setNfts ] = useState([]);
@@ -24,13 +24,23 @@ const NewRight = () => {
 
     useEffect(()=>{
         setOpen(false);
-        console.log(formData)
+        // console.log(formData)
+        props.setTakerData(
+            {
+                tokenAddress: formData.contractAddr,
+                tokenId: formData.tokenId,
+                type: formData.type, // 'ERC721' or 'ERC1155'
+            }
+        )
+        props.setTakerAddrNFt(
+            (prevData) => ({ ...prevData, "takerNftImg" :formData.nftImage})
+        )
     },[formData])
     const openModal = () => {
         if(address===''){
             toast({
                 title: "Counter Address Not Provided",
-                description: "Change the address and submit again",
+                description: "Enter the address and Confirm again",
                 status: "error",
                 duration: 3000,
                 isClosable: true,
@@ -69,6 +79,8 @@ const NewRight = () => {
         else{
             console.log('valid')
             setAddress(addressInput.current ? addressInput.current.value : '');
+
+            props.setTakerAddrNFt((prevData) => ({ ...prevData, "takerAddr" :addressInput.current.value}))
         }
        
     }

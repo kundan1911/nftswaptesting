@@ -24,7 +24,10 @@ export default function Card(props) {
   else if(props.type===3){
     props.setFormData({
       name,
-      nftImage:img
+      nftImage:img,
+      tokenId:props.uri.token_id,
+      contractAddr:props.uri.token_address,
+      type:props.uri.contract_type
     })
     // console.log()
   }
