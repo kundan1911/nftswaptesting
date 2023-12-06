@@ -1,10 +1,13 @@
 import { Box, Flex, HStack, IconButton, useDisclosure, useColorModeValue, Stack ,Button} from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
+// import { ethers , BrowserProvider} from 'ethers';
 
 const Links = [
   { N: "Create Post", L: "/create-post" },
   { N: "Direct Swap", L: "/DirectTrade" },
   { N: "Posts", L: "/Posts" },
+  { N: "Orders", L: "/Orders" },
 ];
 
 function DrawerExample(props) {
@@ -17,6 +20,7 @@ function DrawerExample(props) {
     </div>
   );
 }
+
 
 
 const NavLink = (props) => {
@@ -85,8 +89,7 @@ export default function Navbar(props) {
           </Box>
         ) : null}
       </Box>
-<DrawerExample {...props} />
-
+      <ConnectButton />
     </>
   );
 }
