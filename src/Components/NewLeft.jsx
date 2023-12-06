@@ -8,24 +8,36 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { BsArrowRight } from 'react-icons/bs';
 import 'rc-dialog/assets/bootstrap.css';
 import GetNFts from './GetNft';
-import { useAccount } from "wagmi";
+
 import OnlyCard from '../Components/OnlyCard'; 
 import axios from 'axios'
 
-const NewLeft = () => {
+const NewLeft = (props) => {
 
     const [ nfts, setNfts ] = useState([]);
     const [  selected, setSelected ] = useState([]);
     const [formData, setFormData] = useState({});
-    var { address } = useAccount();
+   
     const [ isOpen, setOpen ] = useState(false);
     const openModal = () => {
         console.log("open")
+        if(props.walletNotConnect===false){
+            props.toastNotConnect((val)=>!val)
+        }
+        else
         setOpen(true);
     };
     useEffect(()=>{
         setOpen(false);
-        console.log(formData)
+        // console.log(formData)
+        props.setMakerData({
+            tokenAddress: formData.contractAddr,
+            tokenId: formData.tokenId,
+            type: formData.type, // 'ERC721' or 'ERC1155'
+
+            
+        })
+        props.setMakerNft(formData.nftImage)
     },[formData])
 
     const closeModal = () => setOpen(false);
