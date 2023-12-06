@@ -228,7 +228,7 @@ const Form1 = ({ formData, setFormData }) => {
 
 const Form2 = ({ formData, setFormData }) => {
   const toast = useToast();
-  const { address } = useAccount();
+  const { address ,isConnected} = useAccount();
   const [counterAddress, setCounterAddress] = useState("");
   const [loadCounterNft, setLoadCounterNft] = useState(false);
   const [formKey, setFormKey] = useState(0);
@@ -291,7 +291,7 @@ const Form2 = ({ formData, setFormData }) => {
           <HStack justifyContent={{ lg: "flex-end" }}>
             <Stack>
               <Text>Your Wallet</Text>
-              <Text>{address.slice(0, 4) + "..." + address.slice(38)}</Text>
+              <Text>{isConnected ? (address.slice(0,4) +"..." +address.slice(38)) : "0xB2...9890"}</Text>
             </Stack>
             <img
               width={"50px"}
@@ -588,6 +588,7 @@ const Form4 = ({ formData, setFormData }) => {
 export default function Multistep() {
   const toast = useToast();
   const navigate = useNavigate();
+  const { address ,isConnected} = useAccount();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({});
   console.log(formData, "FORMDATA");
@@ -624,7 +625,7 @@ export default function Multistep() {
     console.log(allFormData);
     // Perform any action with the complete form data
 
-    axios.post('https://nftbackend-2p4r.onrender.com/savePostData', {
+    axios.post('http://localhost:5001/savePostData', {
       SenderNft: formData.frm3.name,
       ReceiverNft: formData.frm2.name,
       expiryDate: formData.frm1[3],
@@ -671,6 +672,30 @@ export default function Multistep() {
           <Button
             w="7rem"
             onClick={() => {
+              if(step===1 ){
+                if(isConnected===false){
+                toast({
+                  title: "Connect Wallet First",
+                  // description: "Ask taker to Complete it",
+                  status: "error",
+                  duration: 4000,
+                  isClosable: true,
+                });
+              }
+              else if(Object.keys(formData?.frm1).length <2){
+                toast({
+                  title: "option not select",
+                  // description: "Ask taker to Complete it",
+                  status: "error",
+                  duration: 4000,
+                  isClosable: true,
+                });
+              }
+                else{
+                  setStep(step + 1);
+                }
+              }
+              else{
               setStep(step + 1);
               console.log(step);
               if (step >= 4) {
@@ -678,7 +703,9 @@ export default function Multistep() {
               } else {
                 setProgress(progress + 25);
               }
-            }}
+            }
+            }
+          }
             colorScheme="teal"
             variant="outline"
           >
